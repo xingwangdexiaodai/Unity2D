@@ -8,16 +8,19 @@ public class Player : MonoBehaviour
 
     // Tank Components.
     private Rigidbody2D rigidbody2D;
-    [SerializeField]
-    private GameObject projectilePF;
+    private ProjectileManager projectileMG;
 
     // Tnak Config.
     [SerializeField]
     private float moveSpeed = 10f;
     private int nxtDirection;
+    [SerializeField]
+    private float fireRate = 5f;
+    private float timeToFire = 0f;
 
     private void Awake()
     {
+        projectileMG = GetComponent<ProjectileManager>();
         rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
@@ -65,9 +68,10 @@ public class Player : MonoBehaviour
 
     private void Fire()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1") && timeToFire < Time.time)
         {
-            Instantiate(projectilePF, transform.position, transform.rotation);
+            projectileMG.Shoot();
+            timeToFire = Time.time + 1 / fireRate;
         }
     }
 }

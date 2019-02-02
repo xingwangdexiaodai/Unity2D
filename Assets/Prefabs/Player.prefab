@@ -104,7 +104,7 @@ BoxCollider2D:
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   serializedVersion: 2
   m_Size: {x: 0.84, y: 0.79384136}
   m_EdgeRadius: 0
@@ -144,3 +144,4 @@ MonoBehaviour:
   projectilePF: {fileID: 5837260628702337202, guid: 50e3363287fa34d17bc656f4041fe5bf,
     type: 3}
   moveSpeed: 10
+  fireRate: 5
