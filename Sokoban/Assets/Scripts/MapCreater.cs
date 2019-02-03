@@ -4,24 +4,26 @@ using UnityEngine;
 
 public class MapCreater : MonoBehaviour
 {
-    // Map.
+    // 输入的地图。
     public string[] map;
 
-    // Game objects.
+    // 所有的预置体。
     public GameObject wall;
     public GameObject player;
     public GameObject box;
     public GameObject target;
     public GameObject ground;
 
-    // Object positions.
+    // 盒子，墙和目标点的位置。
     private Dictionary<int, GameObject> pos_box_map;
     private HashSet<int> wall_pos_set ;
     private List<int> tar_pos_list;
 
+    // 用于2维转一维。
     // use to convert 2D position to 1D position.
     public const int SIZE = 1000;
 
+    // 左上角地图起始点的位置。
     // Left top position
     public int left_top_x = -5;
     public int left_top_y = -4;
@@ -36,6 +38,7 @@ public class MapCreater : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // 从左到右，从上到下建图。
         int row_pos = left_top_x;
         foreach (var row in map)
         {
