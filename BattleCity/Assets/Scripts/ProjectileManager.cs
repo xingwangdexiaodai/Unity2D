@@ -31,7 +31,7 @@ public class ProjectileManager : MonoBehaviour
         {
             IncrementProjectileCount();
             var projectile = Instantiate(projectilePF, transform.position, transform.rotation);
-            projectile.transform.parent = transform;
+            projectile.SetMyManager(this);
         }
     }
 }

@@ -13,10 +13,11 @@ public class Player : MonoBehaviour
     // Tnak Config.
     [SerializeField]
     private float moveSpeed = 10f;
-    private int nxtDirection;
+    private int nxtDirection = UP;
     [SerializeField]
     private float fireRate = 5f;
     private float timeToFire = 0f;
+    private bool initDone = false;
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!initDone) return;
         Move();
         Turn();
         Fire();
@@ -73,5 +75,9 @@ public class Player : MonoBehaviour
             projectileMG.Shoot();
             timeToFire = Time.time + 1 / fireRate;
         }
+    }
+
+    public void InitDone() {
+        initDone = true;
     }
 }

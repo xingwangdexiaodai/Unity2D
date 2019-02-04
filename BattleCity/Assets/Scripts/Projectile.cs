@@ -6,12 +6,12 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField]
     private float moveSpeed = 10f;
-    private ProjectileManager projectileMG;
+    private ProjectileManager projectileMG_;
 
     // Start is called before the first frame update
     void Start()
     {
-        projectileMG = transform.parent.GetComponent<ProjectileManager>();
+
     }
 
     // Update is called once per frame
@@ -20,11 +20,15 @@ public class Projectile : MonoBehaviour
         transform.Translate(Vector2.down * moveSpeed * Time.deltaTime);
     }
 
+    public void SetMyManager(ProjectileManager projectileMG) {
+        projectileMG_ = projectileMG;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(projectileMG != null)
+        if(projectileMG_ != null)
         {
-            projectileMG.DecrementProjectileCount();
+            projectileMG_.DecrementProjectileCount();
         }
         else 
         {
