@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4992845d4b3243fc92a7a70b1776888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 5
   fireRate: 5
 --- !u!114 &609802948
 MonoBehaviour:
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePF: {fileID: 5837260628702337203, guid: 50e3363287fa34d17bc656f4041fe5bf,
     type: 3}
-  maxProjectileCount: 3
+  maxProjectileCount: 1
 --- !u!95 &1158209252
 Animator:
   serializedVersion: 3
