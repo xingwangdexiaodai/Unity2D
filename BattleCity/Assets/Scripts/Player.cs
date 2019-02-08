@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
 
     private void Move()
     {
-        var xSpeed = Input.GetAxis("Horizontal");
+        var xSpeed = Input.GetAxisRaw("Horizontal");
 
         if (Mathf.Abs(xSpeed) > Mathf.Epsilon)
         {
@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        var ySpeed = Input.GetAxis("Vertical");
+        var ySpeed = Input.GetAxisRaw("Vertical");
         if (Mathf.Abs(ySpeed) > Mathf.Epsilon)
         {
             rigidbody2D.velocity = new Vector2(0, ySpeed) * moveSpeed;

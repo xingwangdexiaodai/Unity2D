@@ -13,14 +13,26 @@ public class Enemy : MonoBehaviour
     // Tnak Config.
     [SerializeField]
     private float moveSpeed = 10f;
-    private int nxtDirection = UP;
+    private int nxtDirection = DOWN;
     [SerializeField]
     private float fireRate = 5f;
     private float timeToFire = 0f;
     private bool initDone = false;
+    [SerializeField]
+    private float minTimeBeforeNextTurn = 0.5f;
+    [SerializeField]
+    private float maxTimeBeforeNextTurn = 3f;
+    private float turnInterval = 1f;
+    [SerializeField]
+    private float minTimeBeforeNextFire = 0.5f;
+    [SerializeField]
+    private float maxTimeBeforeNextFire = 1f;
+    private float fireInterval = 1f;
 
     private void Awake()
     {
+        fireInterval = Random.Range(minTimeBeforeNextFire, maxTimeBeforeNextFire);
+        turnInterval = Random.Range(minTimeBeforeNextTurn, maxTimeBeforeNextTurn);
         projectileMG = GetComponent<ProjectileManager>();
         rigidbody2D = GetComponent<Rigidbody2D>();
     }
@@ -36,48 +48,81 @@ public class Enemy : MonoBehaviour
     {
         if (!initDone) return;
         Move();
-        Turn();
-        Fire();
+        CountDownAndTurn();
+        CountDownAndFire();
     }
 
     private void Move()
     {
-        var xSpeed = Input.GetAxis("Horizontal");
+        float xSpeed = 0f, ySpeed = 0f;
 
-        if (Mathf.Abs(xSpeed) > Mathf.Epsilon)
-        {
-            rigidbody2D.velocity = new Vector2(xSpeed, 0) * moveSpeed;
-            nxtDirection = xSpeed > 0 ? RIGHT : LEFT;
-            return;
+        switch (nxtDirection) {
+            case UP:
+                ySpeed = 1;
+                break;
+            case DOWN:
+                ySpeed = -1;
+                break;
+            case LEFT:
+                xSpeed = -1;
+                break;
+            case RIGHT:
+                xSpeed = 1;
+                break;
         }
-
-        var ySpeed = Input.GetAxis("Vertical");
-        if (Mathf.Abs(ySpeed) > Mathf.Epsilon)
-        {
-            rigidbody2D.velocity = new Vector2(0, ySpeed) * moveSpeed;
-            nxtDirection = ySpeed > 0 ? UP : DOWN;
-            return;
-        }
-
-        rigidbody2D.velocity *= 0;
+        rigidbody2D.velocity = new Vector2(xSpeed, ySpeed) * moveSpeed;
     }
 
     private void Turn()
     {
+        int nxtDirVal = Random.Range(0, 5);
+        switch (nxtDirVal) {
+            case 0:
+                nxtDirection = UP;
+                break;
+            case 1:
+                nxtDirection = LEFT;
+                break;
+            case 2:
+                nxtDirection = RIGHT;
+                break;
+            default:
+                nxtDirection = DOWN;
+                break;
+        }
         float curDirection = transform.eulerAngles.z;
         transform.Rotate(0, 0, nxtDirection - curDirection);
     }
 
     private void Fire()
     {
-        if (Input.GetButton("Fire1") && timeToFire < Time.time)
-        {
-            projectileMG.Shoot();
-            timeToFire = Time.time + 1 / fireRate;
-        }
+        projectileMG.Shoot();
     }
 
     public void InitDone() {
         initDone = true;
+    }
+
+    public void CountDownAndTurn() {
+        turnInterval -= Time.deltaTime;
+        if(turnInterval < 0) {
+            Turn();
+            turnInterval = Random.Range(minTimeBeforeNextTurn, maxTimeBeforeNextTurn);
+        }
+    }
+
+    public void CountDownAndFire()
+    {
+        fireInterval -= Time.deltaTime;
+        if (fireInterval < 0)
+        {
+            Fire();
+            fireInterval = Random.Range(minTimeBeforeNextFire, maxTimeBeforeNextFire);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Turn();
     }
 }
