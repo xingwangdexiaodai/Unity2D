@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &423803395986090532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 423803395986090538}
+  - component: {fileID: 423803395986090539}
+  m_Layer: 0
+  m_Name: BricksCreater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &423803395986090538
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423803395986090532}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &423803395986090539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423803395986090532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ec2252bd6f854a19b48f63f72f81bd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bricks:
+  - {fileID: 6935068833043129231, guid: c82d6e69a2afe400eae9892ae0b26122, type: 3}
+  - {fileID: 7288242345260290381, guid: 65192584f5e754ddaadf8df41bb12eb4, type: 3}
+  - {fileID: 8785666674227898255, guid: c936c518f79c04b71836ea5b2ab58fa6, type: 3}
+  - {fileID: 510331495289493326, guid: b69e7aec6c32f43dbb07d36d11e2d925, type: 3}
+  - {fileID: 4693860236088534004, guid: 738150271bc6e4dd7a7fc5a2c0ee467d, type: 3}
+  - {fileID: 2456068539507293038, guid: 2d0fff3d39d444c2d8cb5d92deb44873, type: 3}
+  sceneLoader: {fileID: 6983146435471728750, guid: d2d559a2f2e4b450cbba21daac42a7e9,
+    type: 3}
