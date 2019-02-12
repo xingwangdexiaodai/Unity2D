@@ -24,15 +24,17 @@ public class Projectile : MonoBehaviour
         projectileMG_ = projectileMG;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.tag == "Player" 
+            || other.tag == "Enemy" 
+            || other.tag == "BreakableBox")
+        {
+            Destroy(other.gameObject);
+        }
         if(projectileMG_ != null)
         {
             projectileMG_.DecrementProjectileCount();
-        }
-        else 
-        {
-            Debug.LogError("No Projectile Manager");
         }
         Destroy(gameObject);
     }

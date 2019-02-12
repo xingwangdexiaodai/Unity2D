@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9080653992477401597}
   - component: {fileID: 9080653992477401570}
   - component: {fileID: 9080653992477401571}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Enemy_G1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,18 +97,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.06307936}
+  m_Offset: {x: 0.0061814487, y: 0.05689788}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.84, y: 0.92}
+    oldSize: {x: 0.9130435, y: 1}
     newSize: {x: 0.84, y: 0.92}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 1
   serializedVersion: 2
-  m_Size: {x: 0.84, y: 0.79384136}
+  m_Size: {x: 0.92654103, y: 0.880383}
   m_EdgeRadius: 0
 --- !u!50 &9080653992477401596
 Rigidbody2D:
@@ -177,5 +177,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779ba46a2507e4deeb78bb59c2c0e93c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  fireRate: 5
+  moveSpeed: 2
+  minTimeBeforeNextTurn: 0.5
+  maxTimeBeforeNextTurn: 3
+  minTimeBeforeNextFire: 0.5
+  maxTimeBeforeNextFire: 1

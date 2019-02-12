@@ -11,13 +11,16 @@ public class Player : MonoBehaviour
     private ProjectileManager projectileMG;
 
     // Tnak Config.
+    private bool initDone = false;
+    // Move.
     [SerializeField]
     private float moveSpeed = 10f;
+    // Turn.
     private int nxtDirection = UP;
+    // Fire.
     [SerializeField]
     private float fireRate = 5f;
     private float timeToFire = 0f;
-    private bool initDone = false;
 
     private void Awake()
     {
@@ -59,7 +62,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        rigidbody2D.velocity *= 0;
+        rigidbody2D.velocity = Vector2.zero;
     }
 
     private void Turn()

@@ -11,18 +11,18 @@ public class Enemy : MonoBehaviour
     private ProjectileManager projectileMG;
 
     // Tnak Config.
+    private bool initDone = false;
+    // Move.
     [SerializeField]
     private float moveSpeed = 10f;
+    // Turn.
     private int nxtDirection = DOWN;
-    [SerializeField]
-    private float fireRate = 5f;
-    private float timeToFire = 0f;
-    private bool initDone = false;
     [SerializeField]
     private float minTimeBeforeNextTurn = 0.5f;
     [SerializeField]
     private float maxTimeBeforeNextTurn = 3f;
     private float turnInterval = 1f;
+    // Fire.
     [SerializeField]
     private float minTimeBeforeNextFire = 0.5f;
     [SerializeField]
@@ -55,7 +55,6 @@ public class Enemy : MonoBehaviour
     private void Move()
     {
         float xSpeed = 0f, ySpeed = 0f;
-
         switch (nxtDirection) {
             case UP:
                 ySpeed = 1;
@@ -119,10 +118,5 @@ public class Enemy : MonoBehaviour
             Fire();
             fireInterval = Random.Range(minTimeBeforeNextFire, maxTimeBeforeNextFire);
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Turn();
     }
 }
