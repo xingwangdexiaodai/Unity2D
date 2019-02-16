@@ -26,15 +26,27 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player" 
-            || other.tag == "Enemy" 
-            || other.tag == "BreakableBox")
-        {
-            Destroy(other.gameObject);
-        }
+        Hit(other);
         if(projectileMG_ != null)
         {
             projectileMG_.DecrementProjectileCount();
+        }
+
+    }
+
+    private void Hit(Collider2D other) {
+        switch (other.tag) {
+            case "Player":
+                other.GetComponent<Player>().DealDamage();
+                break;
+            case "Enemy":
+                other.GetComponent<Enemy>().DealDamage();
+                break;
+            case "BreakableBox":
+                Destroy(other.gameObject);
+                break;
+            default:
+                break;
         }
         Destroy(gameObject);
     }

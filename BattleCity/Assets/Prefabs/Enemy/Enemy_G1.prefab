@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 9080653992477401571}
   m_Layer: 11
   m_Name: Enemy_G1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779ba46a2507e4deeb78bb59c2c0e93c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 1
   moveSpeed: 2
   minTimeBeforeNextTurn: 0.5
   maxTimeBeforeNextTurn: 3

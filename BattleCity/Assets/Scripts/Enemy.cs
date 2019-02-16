@@ -7,11 +7,14 @@ public class Enemy : MonoBehaviour
     private const int DOWN = 0, RIGHT = 90, UP = 180, LEFT = 270;
 
     // Tank Components.
-    private Rigidbody2D rigidbody2D;
+    private Rigidbody2D theRB;
     private ProjectileManager projectileMG;
+    private Animator theAM;
 
     // Tnak Config.
-    private bool initDone = false;
+    private bool isAlive = false;
+    [SerializeField] 
+    private int health = 1;
     // Move.
     [SerializeField]
     private float moveSpeed = 10f;
@@ -34,7 +37,8 @@ public class Enemy : MonoBehaviour
         fireInterval = Random.Range(minTimeBeforeNextFire, maxTimeBeforeNextFire);
         turnInterval = Random.Range(minTimeBeforeNextTurn, maxTimeBeforeNextTurn);
         projectileMG = GetComponent<ProjectileManager>();
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        theRB = GetComponent<Rigidbody2D>();
+        theAM = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
@@ -46,7 +50,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!initDone) return;
+        if (!isAlive) return;
         Move();
         CountDownAndTurn();
         CountDownAndFire();
@@ -69,7 +73,7 @@ public class Enemy : MonoBehaviour
                 xSpeed = 1;
                 break;
         }
-        rigidbody2D.velocity = new Vector2(xSpeed, ySpeed) * moveSpeed;
+        theRB.velocity = new Vector2(xSpeed, ySpeed) * moveSpeed;
     }
 
     private void Turn()
@@ -99,10 +103,10 @@ public class Enemy : MonoBehaviour
     }
 
     public void InitDone() {
-        initDone = true;
+        isAlive = true;
     }
 
-    public void CountDownAndTurn() {
+    private void CountDownAndTurn() {
         turnInterval -= Time.deltaTime;
         if(turnInterval < 0) {
             Turn();
@@ -110,7 +114,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void CountDownAndFire()
+    private void CountDownAndFire()
     {
         fireInterval -= Time.deltaTime;
         if (fireInterval < 0)
@@ -118,5 +122,20 @@ public class Enemy : MonoBehaviour
             Fire();
             fireInterval = Random.Range(minTimeBeforeNextFire, maxTimeBeforeNextFire);
         }
+    }
+
+    public void DealDamage() {
+        --health;
+        if (health == 0)
+        {
+            isAlive = false;
+            theAM.SetTrigger("Dead");
+            theRB.simulated = false;
+            GetComponent<SpriteRenderer>().sortingOrder = 9;
+        }
+    }
+
+    public void DestroyTank() {
+        Destroy(gameObject);
     }
 }

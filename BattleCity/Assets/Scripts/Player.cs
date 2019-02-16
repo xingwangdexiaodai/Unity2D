@@ -7,11 +7,14 @@ public class Player : MonoBehaviour
     private const int DOWN = 0, RIGHT = 90, UP = 180, LEFT = 270;
 
     // Tank Components.
-    private Rigidbody2D rigidbody2D;
+    private Rigidbody2D theRB;
     private ProjectileManager projectileMG;
+    private Animator theAM;
 
     // Tnak Config.
-    private bool initDone = false;
+    private bool isAlive = false;
+    [SerializeField]
+    private int health = 1;
     // Move.
     [SerializeField]
     private float moveSpeed = 10f;
@@ -25,7 +28,8 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         projectileMG = GetComponent<ProjectileManager>();
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        theRB = GetComponent<Rigidbody2D>();
+        theAM = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
@@ -37,7 +41,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!initDone) return;
+        if (!isAlive) return;
         Move();
         Turn();
         Fire();
@@ -49,7 +53,7 @@ public class Player : MonoBehaviour
 
         if (Mathf.Abs(xSpeed) > Mathf.Epsilon)
         {
-            rigidbody2D.velocity = new Vector2(xSpeed, 0) * moveSpeed;
+            theRB.velocity = new Vector2(xSpeed, 0) * moveSpeed;
             nxtDirection = xSpeed > 0 ? RIGHT : LEFT;
             return;
         }
@@ -57,12 +61,12 @@ public class Player : MonoBehaviour
         var ySpeed = Input.GetAxisRaw("Vertical");
         if (Mathf.Abs(ySpeed) > Mathf.Epsilon)
         {
-            rigidbody2D.velocity = new Vector2(0, ySpeed) * moveSpeed;
+            theRB.velocity = new Vector2(0, ySpeed) * moveSpeed;
             nxtDirection = ySpeed > 0 ? UP : DOWN;
             return;
         }
 
-        rigidbody2D.velocity = Vector2.zero;
+        theRB.velocity = Vector2.zero;
     }
 
     private void Turn()
@@ -81,6 +85,23 @@ public class Player : MonoBehaviour
     }
 
     public void InitDone() {
-        initDone = true;
+        isAlive = true;
+    }
+
+    public void DealDamage()
+    {
+        --health;
+        if (health == 0)
+        {
+            isAlive = false;
+            theAM.SetTrigger("Dead");
+            theRB.simulated = false;
+            GetComponent<SpriteRenderer>().sortingOrder = 9;
+        }
+    }
+
+    public void DestroyTank()
+    {
+        Destroy(gameObject);
     }
 }
