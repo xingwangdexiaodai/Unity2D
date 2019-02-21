@@ -132,6 +132,7 @@ public class Enemy : MonoBehaviour
             theAM.SetTrigger("Dead");
             theRB.simulated = false;
             GetComponent<SpriteRenderer>().sortingOrder = 9;
+            EnemyManager.instance.SpawnOnDestroy();
         }
     }
 
