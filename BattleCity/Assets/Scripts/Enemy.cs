@@ -128,12 +128,18 @@ public class Enemy : MonoBehaviour
         --health;
         if (health == 0)
         {
-            isAlive = false;
-            theAM.SetTrigger("Dead");
-            theRB.simulated = false;
-            GetComponent<SpriteRenderer>().sortingOrder = 9;
-            EnemyManager.instance.SpawnOnDestroy();
+            DealDeath();
         }
+    }
+
+    private void DealDeath()
+    {
+        AudioManager.instance.Play("Explode");
+        isAlive = false;
+        theAM.SetTrigger("Dead");
+        theRB.simulated = false;
+        GetComponent<SpriteRenderer>().sortingOrder = 9;
+        EnemyManager.instance.SpawnOnDestroy();
     }
 
     public void DestroyTank() {

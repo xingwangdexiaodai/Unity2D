@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        AudioManager.instance.Play("Spawn");
     }
 
     // Update is called once per frame
@@ -79,6 +79,10 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButton("Fire1") && timeToFire < Time.time)
         {
+            if (projectileMG.AbleToShoot())
+            {
+                AudioManager.instance.Play("Shoot");
+            }
             projectileMG.Shoot();
             timeToFire = Time.time + 1 / fireRate;
         }
@@ -93,11 +97,17 @@ public class Player : MonoBehaviour
         --health;
         if (health == 0)
         {
-            isAlive = false;
-            theAM.SetTrigger("Dead");
-            theRB.simulated = false;
-            GetComponent<SpriteRenderer>().sortingOrder = 9;
+            DealDeath();
         }
+    }
+
+    private void DealDeath()
+    {
+        AudioManager.instance.Play("Explode");
+        isAlive = false;
+        theAM.SetTrigger("Dead");
+        theRB.simulated = false;
+        GetComponent<SpriteRenderer>().sortingOrder = 9;
     }
 
     public void DestroyTank()

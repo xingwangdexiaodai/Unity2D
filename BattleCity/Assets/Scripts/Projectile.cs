@@ -34,8 +34,11 @@ public class Projectile : MonoBehaviour
 
     }
 
-    private void Hit(Collider2D other) {
-        switch (other.tag) {
+    private void Hit(Collider2D other)
+    {
+        DealHit(other);
+        switch (other.tag)
+        {
             case "Player":
                 other.GetComponent<Player>().DealDamage();
                 break;
@@ -49,5 +52,16 @@ public class Projectile : MonoBehaviour
                 break;
         }
         Destroy(gameObject);
+    }
+
+    private void DealHit(Collider2D other)
+    {
+        if (projectileMG_ != null
+            && projectileMG_.tag == "Player"
+            && other != null
+            && other.tag != "Border")
+        {
+            AudioManager.instance.Play("Hit");
+        }
     }
 }

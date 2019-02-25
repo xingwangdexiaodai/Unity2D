@@ -20,7 +20,7 @@ public class ProjectileManager : MonoBehaviour
         --curProjectileCount;
     }
 
-    private bool AbleToShoot() 
+    public bool AbleToShoot() 
     {
         return curProjectileCount < maxProjectileCount;
     }
